@@ -2,13 +2,14 @@
 namespace Ecommerce\V1\Rest\Users;
 
 use Ecommerce\EntityAbstract;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Class UsersEntity
  * @package Ecommerce\V1\Rest\Users
  *
  * @ORM\Entity
- * @ORM\Table(name="user")
+ * @ORM\Table(name="users")
  */
 class UsersEntity extends EntityAbstract
 {

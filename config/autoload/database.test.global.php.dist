@@ -9,7 +9,26 @@ return [
                             'driverClass' => 'Doctrine\DBAL\Driver\PDOSqlite\Driver',
                             'params' =>
                                 [
-                                    'path' => __DIR__ . '/../../data/ecommerce-test.db'
+                                    'path' => __DIR__ . '/../../data/db/ecommerce-test.db'
+                                ]
+                        ]
+                ],
+            'driver' =>
+                [
+                    'Ecommerce_Driver' =>
+                        [
+                            'class' => 'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
+                            'cache' => 'array',
+                            'paths' =>
+                                [
+                                    __DIR__ . '/../../module/Ecommerce/src/Ecommerce/V1/Rest/Users'
+                                ]
+                        ],
+                    'orm_default' =>
+                        [
+                            'drivers' =>
+                                [
+                                    'Ecommerce' => 'Ecommerce_Driver',
                                 ]
                         ]
                 ]
