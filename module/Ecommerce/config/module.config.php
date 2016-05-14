@@ -1,5 +1,10 @@
 <?php
 return array(
+    'view_helpers' => array(
+        'factories' => array(
+            'Hal' => 'Ecommerce\\Hal\\Factory\\HalViewHelperFactory',
+        ),
+    ),
     'zf-versioning' => array(
         'default_version' => 1,
         'uri' => array(

@@ -1,8 +1,10 @@
 <?php
+
 namespace Ecommerce\V1\Rest\Users;
 
 use Ecommerce\EntityAbstract;
 use Doctrine\ORM\Mapping as ORM;
+use Zend\Stdlib\ArraySerializableInterface;
 
 /**
  * Class UsersEntity
@@ -11,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  * @ORM\Table(name="users")
  */
-class UsersEntity extends EntityAbstract
+class UsersEntity extends EntityAbstract implements ArraySerializableInterface, \JsonSerializable
 {
     /**
      * @ORM\Id
@@ -34,7 +36,7 @@ class UsersEntity extends EntityAbstract
      * @var string
      */
     protected $lastname;
-
+    
     /**
      * @ORM\Column(type="string")
      * 
@@ -89,5 +91,20 @@ class UsersEntity extends EntityAbstract
     {
         $this->lastname = $lastname;
         return $this;
+    }
+
+    public function getArrayCopy()
+    {
+        return [
+            'id'        => $this->getUsername(),
+            'username'  => $this->getUsername(),
+            'firstname' => $this->getFirstname(),
+            'lastname'  => $this->getLastname()
+        ];
+    }
+
+    public function jsonSerialize()
+    {
+        return $this->getArrayCopy();
     }
 }

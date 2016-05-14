@@ -1,0 +1,41 @@
+<project name="Continuous S.A. Behat Workshop" default="help" basedir=".">
+    <property file="./build.properties" />
+
+    <target name="help" description="List available targets">
+        <exec executable="phing"
+              passthru="true">
+            <arg value="-l"/>
+        </exec>
+    </target>
+
+    <target name="cleanup">
+        <echo msg="Deleting local config files..." />
+        <delete>
+            <fileset dir="./config">
+                <include name="**/*.local.php" />
+                <include name="**/local.php" />
+            </fileset>
+        </delete>
+        <delete>
+            <fileset dir="./module">
+                <include name="**/*.local.php" />
+                <include name="**/local.php" />
+            </fileset>
+        </delete>
+    </target>
+
+    <target name="drop-db">
+        <echo msg="Deleting database..." />
+        <delete>
+            <fileset dir="./data/db">
+                <include name="*.db" />
+            </fileset>
+        </delete>
+    </target>
+
+    <target name="db-migration" description="Apply all database migrations">
+        <exec command="${doctrine.bin} migrations:migrate --no-interaction" passthru="true"/>
+    </target>
+
+    <target name="reset-db" depends="drop-db, db-migration"/>
+</project>

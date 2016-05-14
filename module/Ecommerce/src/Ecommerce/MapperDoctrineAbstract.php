@@ -55,7 +55,7 @@ class MapperDoctrineAbstract implements MapperDoctrineInterface
             if ($this->getServiceManager()->has('entity_manager')) {
                 $this->setEntityManager($this->getServiceManager()->get('entity_manager'));
             } else {
-                throw new Exception('No entity manager set.');
+                throw new \Exception('No entity manager set.');
             }
         }
 

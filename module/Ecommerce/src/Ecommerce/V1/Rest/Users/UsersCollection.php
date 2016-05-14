@@ -1,4 +1,5 @@
 <?php
+
 namespace Ecommerce\V1\Rest\Users;
 
 use Zend\Paginator\Paginator;

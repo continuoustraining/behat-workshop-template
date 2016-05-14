@@ -1,11 +1,15 @@
 <?php
+
 namespace Ecommerce\V1\Rest\Users;
 
+use Zend\ServiceManager\ServiceLocatorAwareTrait;
 use ZF\ApiProblem\ApiProblem;
 use ZF\Rest\AbstractResourceListener;
 
 class UsersResource extends AbstractResourceListener
 {
+    use ServiceLocatorAwareTrait;
+
     /**
      * Create a resource
      *
@@ -14,7 +18,17 @@ class UsersResource extends AbstractResourceListener
      */
     public function create($data)
     {
-        return new ApiProblem(405, 'The POST method has not been defined');
+        /** @var \Ecommerce\V1\Rest\Users\UsersMapper $mapperUsers */
+        $mapperUsers = $this->getServiceLocator()->get('mapper.user');
+
+        /** @var \Ecommerce\V1\Rest\Users\UsersEntity $user */
+        $user = $this->getServiceLocator()->get('entity.user');
+        $user->setUsername($data->username)
+             ->setFirstname($data->firstname)
+             ->setLastname($data->lastname);
+
+        $mapperUsers->store($user)
+                    ->flush($user);
     }
 
     /**
