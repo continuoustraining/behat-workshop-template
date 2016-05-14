@@ -27,8 +27,14 @@ class UsersResource extends AbstractResourceListener
              ->setFirstname($data->firstname)
              ->setLastname($data->lastname);
 
-        $mapperUsers->store($user)
-                    ->flush($user);
+        try {
+            $mapperUsers->store($user)
+                        ->flush($user);
+        } catch (\Exception $e) {
+            return new ApiProblem(400, 'Bad Request', "Couldn't create user.");
+        }
+
+        return $user;
     }
 
     /**
