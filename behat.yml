@@ -1,0 +1,7 @@
+default:
+    suites:
+        api_features:
+            paths:    [ %paths.base%/features ]
+            contexts:
+                - FeatureContext
+                - RestContext
