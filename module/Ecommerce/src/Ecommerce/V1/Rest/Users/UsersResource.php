@@ -5,6 +5,8 @@ namespace Ecommerce\V1\Rest\Users;
 use Zend\ServiceManager\ServiceLocatorAwareTrait;
 use ZF\ApiProblem\ApiProblem;
 use ZF\Rest\AbstractResourceListener;
+use \DoctrineORMModule\Paginator\Adapter\DoctrinePaginator as DoctrineAdapter;
+use \Doctrine\ORM\Tools\Pagination\Paginator as DoctrinePaginator;
 
 class UsersResource extends AbstractResourceListener
 {
@@ -31,7 +33,7 @@ class UsersResource extends AbstractResourceListener
             $mapperUsers->store($user)
                         ->flush($user);
         } catch (\Exception $e) {
-            return new ApiProblem(400, 'Bad Request', "Couldn't create user.");
+            return new ApiProblem(400, "Couldn't create user.", null, 'Bad Request');
         }
 
         return $user;
@@ -45,7 +47,17 @@ class UsersResource extends AbstractResourceListener
      */
     public function delete($id)
     {
-        return new ApiProblem(405, 'The DELETE method has not been defined for individual resources');
+        /** @var \Ecommerce\V1\Rest\Users\UsersMapper $mapperUsers */
+        $mapperUsers = $this->getServiceLocator()->get('mapper.user');
+
+        if (!$user = $mapperUsers->find($id)) {
+            return new ApiProblem(404, "Couldn't find user with id '$id'.", null, 'Not Found');
+        }
+
+        $mapperUsers->remove($user)
+                    ->flush($user);
+
+        return true;
     }
 
     /**
@@ -67,7 +79,14 @@ class UsersResource extends AbstractResourceListener
      */
     public function fetch($id)
     {
-        return new ApiProblem(405, 'The GET method has not been defined for individual resources');
+        /** @var \Ecommerce\V1\Rest\Users\UsersMapper $mapperUsers */
+        $mapperUsers = $this->getServiceLocator()->get('mapper.user');
+
+        if (!$user = $mapperUsers->find($id)) {
+            return new ApiProblem(404, "Couldn't find user with id '$id'.", null, 'Not Found');
+        }
+
+        return $user;
     }
 
     /**
@@ -78,7 +97,13 @@ class UsersResource extends AbstractResourceListener
      */
     public function fetchAll($params = array())
     {
-        return new ApiProblem(405, 'The GET method has not been defined for collections');
+        /** @var \Ecommerce\V1\Rest\Users\UsersMapper $mapperUsers */
+        $mapperUsers = $this->getServiceLocator()->get('mapper.user');
+
+        $adapter    = new DoctrineAdapter(new DoctrinePaginator($mapperUsers->findAllUsers()));
+        $collection = new \Ecommerce\V1\Rest\Users\UsersCollection($adapter);
+
+        return $collection;
     }
 
     /**
