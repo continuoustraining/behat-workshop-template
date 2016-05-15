@@ -401,7 +401,7 @@ class RestContext implements SnippetAcceptingContext
     }
 
     /**
-     * @Given response collection :arg1 should contain the resource:
+     * @Given response collection ":arg1" should contain the resource:
      */
     public function responseCollectionShouldContainTheResource($collectionName, TableNode $table)
     {
@@ -438,45 +438,23 @@ class RestContext implements SnippetAcceptingContext
     }
 
     /**
-     * @Given response report should contain exactly :arg1 entries
+     * @Then response entity should contain the values:
      */
-    public function responseReportShouldContainExactlyEntries($nbEntries)
-    {
-        $response = $this->getLastResponseJsonData();
-
-        if (count($response->playoutReport) != $nbEntries) {
-            throw new \Exception("The entry count doesn't match: " . count($response->playoutReport));
-        }
-    }
-
-    /**
-     * @Given response report should contain the entry:
-     */
-    public function responseReportShouldContainTheEntry(TableNode $table)
+    public function responseEntityShouldContainTheValues(TableNode $table)
     {
         $params = $table->getRowsHash();
         $response = $this->getLastResponseJsonData();
 
-        $entryFound = false;
-
-        foreach ($response->playoutReport as $entry) {
-            $paramsOk = true;
-
-            foreach ($params as $key => $val) {
-                if ($val != $entry->$key) {
-                    $paramsOk = false;
-                    break;
-                }
+        foreach ($params as $key => $val) {
+            if ($val === 'true') {
+                $val = true;
+            } else if ($val === 'false') {
+                $val = false;
             }
 
-            if ($paramsOk) {
-                $entryFound = true;
-                break;
+            if ($val != $response->$key) {
+                throw new \Exception('Resource not found.');
             }
-        }
-
-        if (!$entryFound) {
-            throw new \Exception('Entry not found.');
         }
     }
 }
