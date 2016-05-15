@@ -1,7 +1,15 @@
 default:
-    suites:
-        api_features:
-            paths:    [ %paths.base%/features ]
-            contexts:
-                - FeatureContext
-                - RestContext
+  suites:
+    api_features:
+      paths:    [ %paths.base%/features ]
+      contexts:
+        - FeatureContext
+        - RestContext
+        - Behat\MinkExtension\Context\MinkContext
+  extensions:
+    Behat\MinkExtension:
+      base_url: http://172.17.0.2
+      sessions:
+        default:
+          selenium2:
+            wd_host: "http://172.17.0.2:8643/wd/hub"
