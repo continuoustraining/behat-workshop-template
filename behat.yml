@@ -12,4 +12,4 @@ default:
       sessions:
         default:
           selenium2:
-            wd_host: "http://172.17.0.2:8643/wd/hub"
+            wd_host: "http://localhost:8643/wd/hub"
