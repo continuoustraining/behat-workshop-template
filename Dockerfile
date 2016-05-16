@@ -11,7 +11,7 @@ RUN apt-get update \
  && echo "AllowEncodedSlashes On" >> /etc/apache2/apache2.conf \
  && mv /var/www/html /var/www/public \
  && cp /usr/src/php/php.ini-production /usr/local/etc/php/php.ini \
- && printf '[Date]\ndate.timezone=UTC' > /usr/local/etc/php/conf.d/timezone.ini
+ && printf '[Date]\ndate.timezone=UTC' > /usr/local/etc/php/conf.d/timezone.ini 
 
 WORKDIR /var/www
 
@@ -19,4 +19,3 @@ COPY . .
 
 RUN chown www-data.www-data /var/www/data/cache \
  && composer install
-
