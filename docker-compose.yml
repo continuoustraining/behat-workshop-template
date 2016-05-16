@@ -1,7 +1,18 @@
-dev:
-  build: .
-  dockerfile: Dockerfile-dev
-  ports:
-   - "8080:80"
-  volumes:
-   - .:/var/www
+version: '2'
+services:
+  dev:
+    build: .
+    ports:
+      - "8080:80"
+    volumes:
+      - .:/var/www
+    links:
+      - phantomjs
+
+  phantomjs:
+    image: cmfatih/phantomjs
+    build: .
+    ports:
+      - 8643
+    entrypoint: phantomjs
+    command: "--webdriver=8643"
