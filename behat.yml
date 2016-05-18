@@ -5,6 +5,7 @@ default:
       contexts:
         - FeatureContext
         - RestContext
+        - InterfaceContext
         - Behat\MinkExtension\Context\MinkContext
   extensions:
     Behat\MinkExtension:

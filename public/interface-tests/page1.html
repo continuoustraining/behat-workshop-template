@@ -5,7 +5,12 @@
     <script>
         $(document).ready(function() {
             $("#goto").change(function(){
-                if ($(this).val() != '') {
+                if ($(this).val() == 'http://stackoverflow.com/') {
+                    var goto = $(this);
+                    setTimeout(function(){
+                        window.location.href = goto.val();
+                    }, 5000);
+                } else if ($(this).val() != '') {
                     window.location.href = $(this).val();
                 }
             });
@@ -25,5 +30,11 @@
             <option value="http://ironmaiden.com/">Iron Maiden</option>
         </select>
     </form>
+    <br />
+    <br />
+    <a id="show-invisible-div" href="#" onclick="$('#invisible-div').show();">Show invisible div!</a>
+    <div id="invisible-div" style="display: none; border-style: dotted;">
+        Invisible div
+    </div>
 </body>
 </html>
