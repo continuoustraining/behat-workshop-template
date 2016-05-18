@@ -1,8 +1,29 @@
 <html>
 <head>
     <h1>Page 1</h1>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $("#goto").change(function(){
+                if ($(this).val() != '') {
+                    window.location.href = $(this).val();
+                }
+            });
+        });
+    </script>
 </head>
 <body>
     This is the body of page 1.
+    <br />
+    <br />
+    <form>
+        <select id="goto" name="goto">
+            <option value="">Go somewhere...</option>
+            <option value="http://cnn.com/">CNN</option>
+            <option value="http://disney.com/">Disney</option>
+            <option value="http://stackoverflow.com/">stackoverflow</option>
+            <option value="http://ironmaiden.com/">Iron Maiden</option>
+        </select>
+    </form>
 </body>
 </html>
