@@ -42,6 +42,8 @@ RUN chown -R www-data /var/www/.*
 RUN chmod -R 775 /var/www/*
 RUN chmod -R 775 /var/www/.*
 
+RUN apt-get -y install git
+
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 EXPOSE 22 80
