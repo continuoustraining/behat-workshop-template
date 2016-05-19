@@ -5,7 +5,7 @@
     <script>
         $(document).ready(function() {
             $("#goto").change(function(){
-                if ($(this).val() == 'http://stackoverflow.com/') {
+                if ($(this).val() == 'http://marvel.com/comics') {
                     var goto = $(this);
                     setTimeout(function(){
                         window.location.href = goto.val();
@@ -30,10 +30,10 @@
     </form>
     <br />
     <br />
-    <a id="show-invisible-div" href="#" onclick="$('#invisible-div').show();">Show super secret Justice League content!</a>
-    <div id="invisible-div" style="display: none;">
+    <a id="show-super-secret-content" href="#" onclick="$('#super-secret-content').show();">Show super secret Justice League content!</a>
+    <div id="super-secret-content" style="display: none;">
         <span style="text-decoration: line-through;">Super secret Justice League content!</span>
-        <strong>You got hacked!</strong>
+        <strong>Hey Bats, you got hacked!</strong>
         <br />
         <img src="img/joker.jpg" />
     </div>
