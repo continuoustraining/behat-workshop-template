@@ -39,6 +39,15 @@ class FeatureContext implements SnippetAcceptingContext
     }
 
     /**
+     * @BeforeScenario
+     */
+    public function purgeDatabase()
+    {
+        $purger = new \Doctrine\Common\DataFixtures\Purger\ORMPurger($this->getEntityManager());
+        $purger->purge();
+    }
+
+    /**
      * @Given a user:
      */
     public function aUser(TableNode $table)
@@ -56,5 +65,26 @@ class FeatureContext implements SnippetAcceptingContext
 
         $mapperUsers->store($user)
                     ->flush($user);
+    }
+
+    /**
+     * @Then a :arg1 with the following data should have been created:
+     */
+    public function aWithTheFollowingDataShouldHaveBeenCreated($entityName, TableNode $table)
+    {
+        /** @var \Ecommerce\V1\Rest\Users\UsersMapper $mapperUsers */
+        $mapperUsers = $this->getServiceManager()->get('mapper.' . $entityName);
+        $users = $mapperUsers->findAll();
+
+        if (count($users) != 1) {
+            throw new \Exception('Exactly 1 user should have been created. Found: ' . count($users));
+        }
+        
+        foreach ($table->getRows() as $property) {
+            $getter = 'get' . ucfirst($property[0]);
+            if ($property[1] != $users[0]->$getter()) {
+                throw new \Exception('Resource not found.');
+            }
+        }
     }
 }
