@@ -23,10 +23,10 @@ Feature: Users
     When I send POST request to "/users" with payload from "create-user.json"
     Then response status code should be 201
     And response entity should contain the values:
-      | username  | pascal |
-      | firstname | Pascal |
-      | lastname  | Paulis |
+      | username  | batman |
+      | firstname | Bruce  |
+      | lastname  | Wayne  |
     And a "user" with the following data should have been created:
-      | username  | pascal |
-      | firstname | Pascal |
-      | lastname  | Paulis |
+      | username  | batman |
+      | firstname | Bruce  |
+      | lastname  | Wayne  |
