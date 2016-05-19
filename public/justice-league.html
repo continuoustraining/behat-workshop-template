@@ -1,6 +1,6 @@
 <html>
 <head>
-    <h1>Page 1</h1>
+    <h1>Homepage of the Justice League</h1>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
     <script>
         $(document).ready(function() {
@@ -18,23 +18,24 @@
     </script>
 </head>
 <body>
-    This is the body of page 1.
+    Justice League's most visited websites:
     <br />
     <br />
     <form>
         <select id="goto" name="goto">
             <option value="">Go somewhere...</option>
-            <option value="http://cnn.com/">CNN</option>
-            <option value="http://disney.com/">Disney</option>
-            <option value="http://stackoverflow.com/">stackoverflow</option>
-            <option value="http://ironmaiden.com/">Iron Maiden</option>
+            <option value="http://www.dccomics.com">DC Comics</option>
+            <option value="http://marvel.com/comics">Marvel Comics</option>
         </select>
     </form>
     <br />
     <br />
-    <a id="show-invisible-div" href="#" onclick="$('#invisible-div').show();">Show invisible div!</a>
-    <div id="invisible-div" style="display: none; border-style: dotted;">
-        Invisible div
+    <a id="show-invisible-div" href="#" onclick="$('#invisible-div').show();">Show super secret Justice League content!</a>
+    <div id="invisible-div" style="display: none;">
+        <span style="text-decoration: line-through;">Super secret Justice League content!</span>
+        <strong>You got hacked!</strong>
+        <br />
+        <img src="img/joker.jpg" />
     </div>
 </body>
 </html>
