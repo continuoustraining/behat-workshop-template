@@ -14,12 +14,31 @@
                     window.location.href = $(this).val();
                 }
             });
+
+            $("#jla-login").submit(function(event) {
+                if ($("[name='username']").val() == 'batman' && $("[name='password']").val() == 'robin') {
+                    event.preventDefault();
+                    window.location.href = '/you-are-connected.html';
+                }
+            });
         });
     </script>
 </head>
 <body>
-    Justice League's most visited websites:
+    <strong>Login to JLA server:</strong>
+    <form id="jla-login">
+        <label>Uername:</label>
+        <input type="text" name="username" />
+        <label>Password:</label>
+        <input type="text" name="password" />
+        <input type="submit" name="submitBtn" value="Login">
+    </form>
+
     <br />
+    <br />
+    <hr>
+
+    <strong>Justice League's most visited websites:</strong>
     <br />
     <form>
         <select id="goto" name="goto">
