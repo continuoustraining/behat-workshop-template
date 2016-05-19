@@ -64,7 +64,7 @@ class FeatureContext implements SnippetAcceptingContext
         }
 
         $mapperUsers->store($user)
-                    ->flush($user);
+            ->flush($user);
     }
 
     /**
@@ -79,12 +79,68 @@ class FeatureContext implements SnippetAcceptingContext
         if (count($users) != 1) {
             throw new \Exception('Exactly 1 user should have been created. Found: ' . count($users));
         }
-        
+
         foreach ($table->getRows() as $property) {
             $getter = 'get' . ucfirst($property[0]);
             if ($property[1] != $users[0]->$getter()) {
                 throw new \Exception('Resource not found.');
             }
         }
+    }
+
+    /**
+     * @Then the :arg1 with the following data should have been deleted:
+     */
+    public function theWithTheFollowingDataShouldHaveBeenDeleted($entityName, TableNode $table)
+    {
+        /** @var \Ecommerce\V1\Rest\Users\UsersMapper $mapperUsers */
+        $mapperUsers = $this->getServiceManager()->get('mapper.' . $entityName);
+        $users = $mapperUsers->findAll();
+
+        /** @var \Ecommerce\V1\Rest\Users\UsersEntity $user */
+        foreach ($users as $user) {
+            $found = true;
+
+            foreach ($table->getRows() as $property) {
+                $getter = 'get' . ucfirst($property[0]);
+                
+                if ($property[1] != $user->$getter()) {
+                    $found = false;
+                    break;
+                }
+            }
+
+            if ($found) {
+                throw new \Exception("The $entityName should have been deleted.");
+            }
+        }
+    }
+
+    /**
+     * @Then the :arg1 with the following data should exist:
+     */
+    public function theWithTheFollowingDataShouldExist($entityName, TableNode $table)
+    {
+        /** @var \Ecommerce\V1\Rest\Users\UsersMapper $mapperUsers */
+        $mapperUsers = $this->getServiceManager()->get('mapper.' . $entityName);
+        $users = $mapperUsers->findAll();
+
+        /** @var \Ecommerce\V1\Rest\Users\UsersEntity $user */
+        foreach ($users as $user) {
+            $found = true;
+
+            foreach ($table->getRows() as $property) {
+                $getter = 'get' . ucfirst($property[0]);
+
+                if ($property[1] != $user->$getter()) {
+                    $found = false;
+                    break;
+                }
+            }
+            if ($found) {
+                return;
+            }
+        }
+        throw new \Exception("The $entityName should exist.");
     }
 }
