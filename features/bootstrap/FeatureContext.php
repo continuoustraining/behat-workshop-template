@@ -43,6 +43,18 @@ class FeatureContext implements SnippetAcceptingContext
      */
     public function aUser(TableNode $table)
     {
-        throw new PendingException();
+        /** @var \Ecommerce\V1\Rest\Users\UsersEntity $user */
+        $user = $this->getServiceManager()->get('entity.user');
+
+        /** @var \Ecommerce\V1\Rest\Users\UsersMapper $mapperUsers */
+        $mapperUsers = $this->getServiceManager()->get('mapper.user');
+
+        foreach ($table->getRows() as $property) {
+            $setter = 'set' . ucfirst($property[0]);
+            $user->$setter($property[1]);
+        }
+
+        $mapperUsers->store($user)
+                    ->flush($user);
     }
 }
