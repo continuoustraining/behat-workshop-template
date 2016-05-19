@@ -37,4 +37,12 @@ class FeatureContext implements SnippetAcceptingContext
     {
         return $this->zf2MvcApplication->getServiceManager();
     }
+
+    /**
+     * @Then a :arg1 with the following data should have been created:
+     */
+    public function aWithTheFollowingDataShouldHaveBeenCreated($arg1, TableNode $table)
+    {
+        throw new PendingException();
+    }
 }
