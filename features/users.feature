@@ -30,3 +30,20 @@ Feature: Users
       | username  | batman |
       | firstname | Bruce  |
       | lastname  | Wayne  |
+
+  Scenario Outline: Create a new user
+    When I send POST request to "/users" with payload from "create-user-<username>.json"
+    Then response status code should be 201
+    And response entity should contain the values:
+      | username  | <username>  |
+      | firstname | <firstname> |
+      | lastname  | <lastname>  |
+    And a "user" with the following data should have been created:
+      | username  | <username>  |
+      | firstname | <firstname> |
+      | lastname  | <lastname>  |
+
+    Examples:
+      | username | firstname | lastname |
+      | batman   | Bruce     | Wayne    |
+      | superman | Clark     | Kent     |
