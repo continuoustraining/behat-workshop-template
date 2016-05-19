@@ -39,9 +39,9 @@ class FeatureContext implements SnippetAcceptingContext
     }
 
     /**
-     * @Then a :arg1 with the following data should have been created:
+     * @Given a user:
      */
-    public function aWithTheFollowingDataShouldHaveBeenCreated($arg1, TableNode $table)
+    public function aUser(TableNode $table)
     {
         throw new PendingException();
     }
