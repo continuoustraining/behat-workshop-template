@@ -25,4 +25,9 @@ Feature: Interface tests
       | password | robin  |
     And I press "submitBtn"
     Then I should be on "/you-are-connected.html"
-    Then I should see "You are connected!"
+    And I should see "You are connected!"
+
+  Scenario: Redirect to Marvel Comics when selecting it in the Goto Select, taking into account an AJAX delay.
+    When I am on "/justice-league.html"
+    And I select "Marvel Comics" from "goto"
+    Then after some time I should be on "http://marvel.com/comics" and see "Marvel"
