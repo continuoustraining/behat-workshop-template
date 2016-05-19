@@ -5,3 +5,12 @@ default:
       contexts:
         - FeatureContext
         - RestContext
+        - InterfaceContext
+        - Behat\MinkExtension\Context\MinkContext
+  extensions:
+    Behat\MinkExtension:
+      base_url: http://localhost
+      sessions:
+        default:
+          selenium2:
+            wd_host: "http://localhost:8643/wd/hub"
