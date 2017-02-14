@@ -45,17 +45,17 @@ fi
 
 echo "** [ZF] Run the following command to install dependencies, if you have not already:"
 echo "    vagrant ssh -c 'composer install'"
-echo "** [ZF] Visit http://localhost:8080 in your browser for to view the application **"
+echo "** [ZF] Visit http://localhost:8081 in your browser for to view the application **"
 SCRIPT
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = 'bento/ubuntu-16.04'
-  config.vm.network "forwarded_port", guest: 80, host: 8080
+  config.vm.network "forwarded_port", guest: 80, host: 8081
   config.vm.synced_folder '.', '/var/www'
   config.vm.provision 'shell', inline: @script
 
   config.vm.provider "virtualbox" do |vb|
     vb.customize ["modifyvm", :id, "--memory", "1024"]
-    vb.customize ["modifyvm", :id, "--name", "Apigility - Ubuntu 16.04"]
+    vb.customize ["modifyvm", :id, "--name", "Apigility off-screen - Ubuntu 16.04"]
   end
 end
