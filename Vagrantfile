@@ -6,7 +6,12 @@ VAGRANTFILE_API_VERSION = '2'
 @script = <<SCRIPT
 # Install dependencies
 apt-get update
-apt-get install -y apache2 git curl php7.0 php7.0-bcmath php7.0-bz2 php7.0-cli php7.0-curl php7.0-intl php7.0-json php7.0-mbstring php7.0-opcache php7.0-soap php7.0-sqlite3 php7.0-xml php7.0-xsl php7.0-zip libapache2-mod-php7.0
+
+debconf-set-selections <<< 'mysql-server mysql-server/root_password password secret'
+debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password secret'
+apt-get -y install mysql-server mysql-client
+
+apt-get install -y apache2 git curl php7.0 php7.0-bcmath php7.0-bz2 php7.0-cli php7.0-curl php7.0-intl php7.0-json php7.0-mbstring php7.0-opcache php7.0-soap php7.0-sqlite3 php7.0-xml php7.0-xsl php7.0-zip libapache2-mod-php7.0 php7.0-mysql
 
 # Configure Apache
 echo "<VirtualHost *:80>

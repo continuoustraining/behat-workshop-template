@@ -6,10 +6,15 @@ return [
                 [
                     'orm_default' =>
                         [
-                            'driverClass' => 'Doctrine\DBAL\Driver\PDOSqlite\Driver',
+                            'driverClass' => 'Doctrine\DBAL\Driver\PDOMySql\Driver',
                             'params' =>
                                 [
-                                    'path' => __DIR__ . '/../../data/db/ecommerce-test.db'
+                                    'host'     => 'localhost',
+                                    'port'     => '3306',
+                                    'user'     => '@db.username@',
+                                    'password' => '@db.password@',
+                                    'dbname'   => '@db.name@',
+                                    'charset'  => 'UTF8',
                                 ]
                         ]
                 ],
