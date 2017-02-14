@@ -20,12 +20,6 @@ class UsersResource extends AbstractResourceListener
      */
     public function create($data)
     {
-        // Create user
-        /** @var UsersService $serviceUsers */
-        $serviceUsers = $this->getServiceLocator()->get('service.user');
-        $newUser      = $serviceUsers->createUser((array)$data);
-
-        return $newUser;
     }
 
     /**
@@ -36,17 +30,6 @@ class UsersResource extends AbstractResourceListener
      */
     public function delete($id)
     {
-        /** @var \Ecommerce\V1\Rest\Users\UsersMapper $mapperUsers */
-        $mapperUsers = $this->getServiceLocator()->get('mapper.user');
-
-        if (!$user = $mapperUsers->find($id)) {
-            return new ApiProblem(404, "Couldn't find user with id '$id'.", null, 'Not Found');
-        }
-
-        $mapperUsers->remove($user)
-                    ->flush($user);
-
-        return true;
     }
 
     /**
@@ -68,14 +51,6 @@ class UsersResource extends AbstractResourceListener
      */
     public function fetch($id)
     {
-        /** @var \Ecommerce\V1\Rest\Users\UsersMapper $mapperUsers */
-        $mapperUsers = $this->getServiceLocator()->get('mapper.user');
-
-        if (!$user = $mapperUsers->find($id)) {
-            return new ApiProblem(404, "Couldn't find user with id '$id'.", null, 'Not Found');
-        }
-
-        return $user;
     }
 
     /**
@@ -86,13 +61,6 @@ class UsersResource extends AbstractResourceListener
      */
     public function fetchAll($params = array())
     {
-        /** @var \Ecommerce\V1\Rest\Users\UsersMapper $mapperUsers */
-        $mapperUsers = $this->getServiceLocator()->get('mapper.user');
-
-        $adapter    = new DoctrineAdapter(new DoctrinePaginator($mapperUsers->findAllUsers()));
-        $collection = new \Ecommerce\V1\Rest\Users\UsersCollection($adapter);
-
-        return $collection;
     }
 
     /**
