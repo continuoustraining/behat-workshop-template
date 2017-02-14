@@ -20,23 +20,12 @@ class UsersResource extends AbstractResourceListener
      */
     public function create($data)
     {
-        /** @var \Ecommerce\V1\Rest\Users\UsersMapper $mapperUsers */
-        $mapperUsers = $this->getServiceLocator()->get('mapper.user');
+        // Create user
+        /** @var UsersService $serviceUsers */
+        $serviceUsers = $this->getServiceLocator()->get('service.user');
+        $newUser      = $serviceUsers->createUser((array)$data);
 
-        /** @var \Ecommerce\V1\Rest\Users\UsersEntity $user */
-        $user = $this->getServiceLocator()->get('entity.user');
-        $user->setUsername($data->username)
-             ->setFirstname($data->firstname)
-             ->setLastname($data->lastname);
-
-        try {
-            $mapperUsers->store($user)
-                        ->flush($user);
-        } catch (\Exception $e) {
-            return new ApiProblem(400, "Couldn't create user.", null, 'Bad Request');
-        }
-
-        return $user;
+        return $newUser;
     }
 
     /**

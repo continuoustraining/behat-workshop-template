@@ -19,8 +19,10 @@ Feature: Users
       | firstname | Bruce  |
       | lastname  | Wayne  |
 
+    @create
   Scenario: Create a new user
     When I send POST request to "/users" with payload from "create-user.json"
+    Then echo last response
     Then response status code should be 201
     And response entity should contain the values:
       | username  | batman |

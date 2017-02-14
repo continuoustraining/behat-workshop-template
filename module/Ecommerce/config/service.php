@@ -11,7 +11,8 @@ return [
                 ],
             'factories' =>
                 [
-                    'mapper.user' => '\Ecommerce\V1\Rest\Users\UsersMapperFactory'
+                    'mapper.user'  => '\Ecommerce\V1\Rest\Users\UsersMapperFactory',
+                    'service.user' => '\Ecommerce\V1\Rest\Users\UsersServiceFactory',
                 ],
             'shared' =>
                 [

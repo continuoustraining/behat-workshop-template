@@ -41,7 +41,7 @@ class RestContext implements SnippetAcceptingContext
     {
         $this->client = new \GuzzleHttp\Client(
             [
-                'base_uri' => 'http://172.17.0.2',
+                'base_uri' => 'http://localhost',
                 'verify'   => false
             ]
         );

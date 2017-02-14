@@ -6,7 +6,7 @@ return [
                 [
                     'orm_default' =>
                         [
-                            'driverClass' => 'Doctrine\DBAL\Driver\PDOSqlite\Driver',
+                            'driverClass' => 'Doctrine\DBAL\Driver\PDOMySql\Driver',
                             'params' =>
                                 [
                                     'path' => __DIR__ . '/../../data/db/ecommerce.db'
